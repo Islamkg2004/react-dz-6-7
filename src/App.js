@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
-
+import {useState} from "react";
+import {Routes, Route} from "react-router-dom";
+import MainPage from "./Pages/MainPage/MainPage";
+import AboutUs from "./Pages/AboutUs/AboutUs";
+import Pokemon from "./Pages/PokemonInfo/Pokemon";
 function App() {
+    const [theme, setTheme] = useState('light')
+
+    const toggleTheme = ()=>{
+        const newTheme =  theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme)
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`app ${theme}`}>
+        <div className='container'>
+        <button onClick={toggleTheme}>
+            Change color
+        </button>
+        <Routes>
+            <Route path='/' element={<MainPage />}  />
+            <Route path='/about-us/' element={<AboutUs />}  />
+             <Route path='/pokemon/:name' element={<Pokemon/>}/>
+            
+        </Routes>
+
+
+
+        </div>
     </div>
   );
 }
